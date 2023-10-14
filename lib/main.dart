@@ -9,6 +9,7 @@ import 'package:coltech/welcome.dart';
 import 'package:coltech/register.dart';
 
 import 'login.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -22,24 +23,21 @@ Future<void> main() async {
       'register': (context) => MyRegister(),
       'login': (context) => MyLogin(),
       'welcome': (context) => Welcome(),
-      'registeras':(context) => RegisterAs(),
+      'registeras': (context) => RegisterAs(),
       'reset': (context) => ResetPassword(),
       'MyProfile': (context) => FutureBuilder<User?>(
-        future: FirebaseAuth.instance.authStateChanges().first,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Return a loading indicator or splash screen while waiting for user data
-            return CircularProgressIndicator();
-          } else {
-            User? user = snapshot.data;
-            String? email = user?.email;
-            return Profile(user: user, email: email);
-          }
-        },
-      ),
+            future: FirebaseAuth.instance.authStateChanges().first,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // Return a loading indicator or splash screen while waiting for user data
+                return CircularProgressIndicator();
+              } else {
+                User? user = snapshot.data;
+                String? email = user?.email;
+                return Profile(user: user, email: email);
+              }
+            },
+          ),
     },
   ));
 }
-
-
-

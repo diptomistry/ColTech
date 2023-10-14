@@ -22,7 +22,7 @@ class ProfileMenuWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
-    var iconColor = isDark ? Colors.blue : Colors.blue;
+    var iconColor = isDark ? Color(0xff214062) : Color(0xff214062);
 
     return ListTile(
       style: ListTileStyle.list,
@@ -45,7 +45,7 @@ class ProfileMenuWidget extends StatelessWidget {
               height: 30,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(100),
-                color: Colors.blue,
+                color: Color(0xff214062),
               ),
               child: const Icon(Icons.panorama_wide_angle,
                   size: 18.0, color: Colors.white))

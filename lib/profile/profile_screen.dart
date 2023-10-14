@@ -44,14 +44,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-    //     statusBarColor: Colors.blue, statusBarBrightness: Brightness.light));
+    //     statusBarColor: Color(0xff214062), statusBarBrightness: Brightness.light));
     // print(main);
     var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
       // appBar: AppBar(
       //   toolbarHeight: 0,
       //   systemOverlayStyle: SystemUiOverlayStyle(
-      //       statusBarColor: Colors.blue, statusBarBrightness: Brightness.light),
+      //       statusBarColor: Color(0xff214062), statusBarBrightness: Brightness.light),
       //   elevation: 0,
       // ),
       backgroundColor: Colors.white,
@@ -86,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             height: MediaQuery.of(context).size.height * 0.05,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(100),
-                                color: Colors.blue),
+                                color: Color(0xff214062)),
                             child: const Icon(
                               LineAwesomeIcons.alternate_pencil,
                               color: Colors.white,
@@ -100,12 +100,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return Center(
                       child: CircularProgressIndicator(
-                        color: Colors.blue,
+                        color: Color(0xff214062),
                       ),
                     );
                   }
                   return CircularProgressIndicator(
-                    color: Colors.blue,
+                    color: Color(0xff214062),
                   );
                 }),
             const SizedBox(height: 10),
@@ -121,10 +121,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     }
                   }
                   return CircularProgressIndicator(
-                    color: Colors.blue,
+                    color: Color(0xff214062),
                   );
                   return CircularProgressIndicator(
-                    color: Colors.blue,
+                    color: Color(0xff214062),
                   );
                 }),
             SizedBox(
@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
               child: ElevatedButton(
                 onPressed: () => Get.to(() => UpdateProfileScreen()),
                 style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.blue,
+                    backgroundColor: Color(0xff214062),
                     elevation: 5,
                     side: BorderSide.none,
                     shape: const StadiumBorder()),
@@ -148,63 +148,64 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const SizedBox(height: 10),
 
             /// -- MENU
-            ProfileMenuWidget(
-                title: "Settings",
-                icon: LineAwesomeIcons.cog,
-                onPress: () {
-                  Get.defaultDialog(
-                    title: "Notifications",
-                    titleStyle: const TextStyle(fontSize: 20),
-                    content: Padding(
-                      padding: EdgeInsets.symmetric(vertical: 15.0),
-                      child: Text(
-                        'Turn off notifications',
-                        style: TextStyle(fontWeight: FontWeight.w500),
-                      ),
-                    ),
-                    confirm: ElevatedButton(
-                      onPressed: () async {
-                        // await requestPermissionAndSendNotificationSubscription(
-                        //     8,
-                        //     enable: false);
-                      },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue, side: BorderSide.none),
-                      child: const Text("Yes"),
-                    ),
-                    cancel: OutlinedButton(
-                        onPressed: () async {
-                          Get.back();
-                          // await requestPermissionAndSendNotificationSubscription(
-                          //     8,
-                          //     enable: true);
-                        },
-                        child: const Text(
-                          "No",
-                          style: TextStyle(color: Colors.black),
-                        )),
-                  );
-                }),
-            ProfileMenuWidget(
-                title: "My Booking",
-                icon: Icons.book_online_rounded,
-                onPress: () {
-                  // Get.to(() => const AllTicketPage());
-                }),
-            ProfileMenuWidget(
-                title: "Billing Details",
-                icon: LineAwesomeIcons.wallet,
-                onPress: () {
-                  // Get.to(() => const AllTicketPage());
-                }),
-            ProfileMenuWidget(
-                title: "User Management",
-                icon: LineAwesomeIcons.user_check,
-                onPress: () {}),
+            // ProfileMenuWidget(
+            //     title: "Settings",
+            //     icon: LineAwesomeIcons.cog,
+            //     onPress: () {
+            //       Get.defaultDialog(
+            //         title: "Notifications",
+            //         titleStyle: const TextStyle(fontSize: 20),
+            //         content: Padding(
+            //           padding: EdgeInsets.symmetric(vertical: 15.0),
+            //           child: Text(
+            //             'Turn off notifications',
+            //             style: TextStyle(fontWeight: FontWeight.w500),
+            //           ),
+            //         ),
+            //         confirm: ElevatedButton(
+            //           onPressed: () async {
+            //             // await requestPermissionAndSendNotificationSubscription(
+            //             //     8,
+            //             //     enable: false);
+            //           },
+            //           style: ElevatedButton.styleFrom(
+            //               backgroundColor: Color(0xff214062),
+            //               side: BorderSide.none),
+            //           child: const Text("Yes"),
+            //         ),
+            //         cancel: OutlinedButton(
+            //             onPressed: () async {
+            //               Get.back();
+            //               // await requestPermissionAndSendNotificationSubscription(
+            //               //     8,
+            //               //     enable: true);
+            //             },
+            //             child: const Text(
+            //               "No",
+            //               style: TextStyle(color: Colors.black),
+            //             )),
+            //       );
+            //     }),
+            // ProfileMenuWidget(
+            //     title: "My Booking",
+            //     icon: Icons.book_online_rounded,
+            //     onPress: () {
+            //       // Get.to(() => const AllTicketPage());
+            //     }),
+            // ProfileMenuWidget(
+            //     title: "Billing Details",
+            //     icon: LineAwesomeIcons.wallet,
+            //     onPress: () {
+            //       // Get.to(() => const AllTicketPage());
+            //     }),
+            // ProfileMenuWidget(
+            //     title: "User Management",
+            //     icon: LineAwesomeIcons.user_check,
+            //     onPress: () {}),
             ProfileMenuWidget(
                 title: "Logout",
                 icon: LineAwesomeIcons.alternate_sign_out,
-                textColor: Colors.blue,
+                textColor: Color(0xff214062),
                 endIcon: false,
                 onPress: () {
                   Get.defaultDialog(
@@ -226,7 +227,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         // Get.to(() => LoginScreen());
                       },
                       style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue, side: BorderSide.none),
+                          backgroundColor: Color(0xff214062),
+                          side: BorderSide.none),
                       child: const Text("Yes"),
                     ),
                     cancel: OutlinedButton(
@@ -239,22 +241,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 }),
 
             Spacer(),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.1,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  getCustomFont('Powered by', 13, Colors.black, 2,
-                      fontWeight: FontWeight.w700),
-                  Image.asset(
-                    "asset/images/stt.png",
-                    width: 110,
-                    height: 50,
-                    fit: BoxFit.fill,
-                  ),
-                ],
-              ),
-            ),
           ],
         ),
       ),

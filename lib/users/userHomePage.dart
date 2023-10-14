@@ -25,7 +25,7 @@ class _UserHomePageState extends State<UserHomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Welcome Rasel!',
+              'Welcome to ColTech!',
               style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
             ),
             SizedBox(

@@ -1,18 +1,21 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coltech/add_post/add_photo.dart';
+import 'package:coltech/add_post/add_post.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 
 import '../models/post.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({Key? key});
+class NewsFeed extends StatefulWidget {
+  const NewsFeed({Key? key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<NewsFeed> createState() => _NewsFeedState();
 }
 
-class _HomePageState extends State<HomePage> {
+class _NewsFeedState extends State<NewsFeed> {
   bool isLoading = false;
   DocumentSnapshot? lastPostDocument;
   ScrollController _scrollController = ScrollController();
@@ -30,7 +33,8 @@ class _HomePageState extends State<HomePage> {
     DocumentSnapshot userSnapshot = await users.doc(userID).get();
 
     if (userSnapshot.exists) {
-      Map<String, dynamic> userData = userSnapshot.data() as Map<String, dynamic>;
+      Map<String, dynamic> userData =
+          userSnapshot.data() as Map<String, dynamic>;
       return User.fromMap(userData);
     } else {
       return null; // User not found
@@ -41,15 +45,17 @@ class _HomePageState extends State<HomePage> {
     FirebaseFirestore firestore = FirebaseFirestore.instance;
     CollectionReference users = firestore.collection('users');
 
-    QuerySnapshot userSnapshot = await users.where('userID', isEqualTo: userID).get();
+    QuerySnapshot userSnapshot =
+        await users.where('userID', isEqualTo: userID).get();
 
     if (userSnapshot.size > 0) {
       // Assuming there's only one document with the specified 'userID'
       QueryDocumentSnapshot userData = userSnapshot.docs[0];
-      Map<String, dynamic> userDataMap = userData.data() as Map<String, dynamic>;
+      Map<String, dynamic> userDataMap =
+          userData.data() as Map<String, dynamic>;
 
       // Make sure 'ownerName' is the correct field name in your Firestore document
-      return userDataMap['ownerName'] as String?;
+      return userDataMap['ownerName'] ?? 'Name';
     } else {
       return null;
     }
@@ -88,20 +94,9 @@ class _HomePageState extends State<HomePage> {
         height: MediaQuery.of(context).size.height,
         child: Column(
           children: [
-            SizedBox(
-              height: 30,
-            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                SizedBox(
-                  width: 20,
-                ),
-                Text(
-                  'PetBook',
-                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20),
-                ),
-                Spacer(),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
@@ -155,42 +150,53 @@ class _HomePageState extends State<HomePage> {
                               Post post = posts[index];
                               User? _user = userNamesSnapshot.data?[index];
                               return Card(
-                                elevation: 2,
+                                elevation:
+                                    4, // Add elevation for a shadow effect
+                                margin: EdgeInsets.symmetric(
+                                    horizontal: 16,
+                                    vertical: 8), // Adjust margins for spacing
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(
+                                      12.0), // Add rounded corners
+                                ),
                                 child: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     ListTile(
+                                      contentPadding: EdgeInsets.all(
+                                          12), // Add padding to ListTile
                                       leading: CircleAvatar(
-                                        child: Icon(Icons.manage_search_sharp),
+                                        backgroundColor:
+                                            Colors.blue, // Set background color
+                                        child: Icon(Icons.question_mark,
+                                            color: Colors.white), // Icon color
                                       ),
                                       title: Text(
                                         _user?.ownerName ?? 'Unknown',
-                                        style: TextStyle(color: Colors.black),
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18, // Increase font size
+                                          fontWeight: FontWeight
+                                              .bold, // Add bold font weight
+                                        ),
                                       ),
                                       subtitle: Text(
-                                          "At ${DateFormat('h.mm a d MMMM').format(post.time)}"),
+                                        "At ${DateFormat('h:mm a, d MMMM').format(post.time)}",
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 14, // Reduce font size
+                                        ),
+                                      ),
                                     ),
                                     Padding(
-                                      padding: const EdgeInsets.only(
-                                        left: 18.0,
-                                        bottom: 5,
-                                      ),
+                                      padding: EdgeInsets.all(
+                                          12), // Add padding to the text
                                       child: Text(
                                         post.text ?? 'Unknown',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding: const EdgeInsets.symmetric(
-                                        horizontal: 10,
-                                        vertical: 5,
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          Icon(Icons.favorite_border),
-                                          SizedBox(width: 10),
-                                          Icon(Icons.comment_bank_outlined),
-                                        ],
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 16, // Increase font size
+                                        ),
                                       ),
                                     ),
                                   ],
@@ -206,6 +212,21 @@ class _HomePageState extends State<HomePage> {
               ),
             ),
           ],
+        ),
+      ),
+      floatingActionButton: Container(
+        width: 110,
+        height: 40, // Set the desired width
+        child: FloatingActionButton(
+          onPressed: () {
+            Get.to(() => AddPost());
+            // Add your onPressed function here
+          },
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(Radius.circular(
+                4.0)), // Adjust the radius for the desired shape
+          ),
+          child: Center(child: Text('Add Question')),
         ),
       ),
     );

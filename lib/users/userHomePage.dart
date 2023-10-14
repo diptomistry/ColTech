@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
+import '../consultation_category/conscat_firestore.dart';
+
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
 
@@ -24,7 +26,7 @@ class _UserHomePageState extends State<UserHomePage> {
           children: [
             Text(
               'Welcome Rasel!',
-              style: TextStyle(fontSize: 29, fontWeight: FontWeight.w700),
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w700),
             ),
             SizedBox(
               height: 10,
@@ -36,54 +38,66 @@ class _UserHomePageState extends State<UserHomePage> {
             //categories
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.2,
-              child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (context, index) {
-                    return InkWell(
-                      onTap: () {
-                        Get.to(() => AllExpertsPage(speakerId: 1));
-                      },
-                      child: Container(
-                        margin: EdgeInsets.only(
-                            left: 0, right: 10, top: 10, bottom: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: Colors.grey.withOpacity(0.3),
-                                  spreadRadius: 2,
-                                  blurRadius: 18)
-                            ]),
-                        height: MediaQuery.of(context).size.height * 0.08,
-                        width: MediaQuery.of(context).size.width * 0.5,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Image.asset(
-                              'assets/ai.png',
-                              width: 40,
-                            ),
-                            Text(
-                              'Devops',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w700, fontSize: 20),
-                            ),
-                            SizedBox(
-                              height: 2,
-                            ),
-                            Text(
-                              '25 Available',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.w500,
-                                  fontSize: 16,
-                                  color: Colors.grey),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
+              child: FutureBuilder(
+                  future: fetchConsCats(),
+                  builder: (context, snapshot) {
+                    var categories = snapshot.data;
+                    if (!snapshot.hasData)
+                      return Center(child: CircularProgressIndicator());
+                    else
+                      return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount: categories?.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Get.to(() => AllExpertsPage(
+                                    speakerId:
+                                        int.parse(categories![index].id)));
+                              },
+                              child: Container(
+                                margin: EdgeInsets.only(
+                                    left: 0, right: 10, top: 10, bottom: 10),
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: Colors.grey.withOpacity(0.3),
+                                          spreadRadius: 2,
+                                          blurRadius: 18)
+                                    ]),
+                                height:
+                                    MediaQuery.of(context).size.height * 0.08,
+                                width: MediaQuery.of(context).size.width * 0.5,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Image.network(
+                                      categories![index].image,
+                                      width: 40,
+                                    ),
+                                    Text(
+                                      categories![index].name,
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.w700,
+                                          fontSize: 20),
+                                    ),
+                                    SizedBox(
+                                      height: 2,
+                                    ),
+                                    // Text(
+                                    //   '25 Available',
+                                    //   style: TextStyle(
+                                    //       fontWeight: FontWeight.w500,
+                                    //       fontSize: 16,
+                                    //       color: Colors.grey),
+                                    // )
+                                  ],
+                                ),
+                              ),
+                            );
+                          });
                   }),
             ),
             SizedBox(
@@ -148,7 +162,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             height: 30,
                             width: 100,
                             decoration: BoxDecoration(
-                                color: Colors.blue,
+                                color: Color(0xff214062),
                                 borderRadius: BorderRadius.circular(20)),
                             child: Center(
                               child: Text(

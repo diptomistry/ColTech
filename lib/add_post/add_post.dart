@@ -45,7 +45,8 @@ class _AddPostState extends State<AddPost> {
                 }).catchError((error) {
                   print("Failed to add post: $error");
                 });
-                CollectionReference users = FirebaseFirestore.instance.collection('users');
+                CollectionReference users =
+                    FirebaseFirestore.instance.collection('users');
               } else {
                 print("User is not signed in.");
               }
@@ -60,35 +61,37 @@ class _AddPostState extends State<AddPost> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-        SizedBox(
-        height: 20,
-      ),
-      Container(
-        margin: EdgeInsets.only(left: 18),
-        padding: EdgeInsets.only(left: 18),
-        height: 100,
-        width: MediaQuery.of(context).size.width * 0.9,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: [BoxShadow(color: Colors.grey.withOpacity(0.1)),],
-      ),
-      child: Padding(
-        padding: const EdgeInsets.only(left: 18.0),
-        child: TextField(
-          style: TextStyle(color: Colors.black),
-          controller: postEdit,
-          decoration: InputDecoration(
-            border: InputBorder.none,
-            labelText: 'Write...',
+          SizedBox(
+            height: 20,
           ),
-        ),
+          Container(
+            margin: EdgeInsets.only(left: 18),
+            padding: EdgeInsets.only(left: 18),
+            height: 100,
+            width: MediaQuery.of(context).size.width * 0.9,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(color: Colors.grey.withOpacity(0.1)),
+              ],
+            ),
+            child: Padding(
+              padding: const EdgeInsets.only(left: 18.0),
+              child: TextField(
+                style: TextStyle(color: Colors.black),
+                controller: postEdit,
+                decoration: InputDecoration(
+                  border: InputBorder.none,
+                  labelText: 'Write...',
+                ),
+              ),
+            ),
+          ),
+          SizedBox(
+            height: 20,
+          ),
+        ],
       ),
-    ),
-    SizedBox(
-    height: 20,
-    ),
-    ],
-    ),
     );
   }
 }

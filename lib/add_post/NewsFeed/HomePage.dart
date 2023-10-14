@@ -55,7 +55,7 @@ class _NewsFeedState extends State<NewsFeed> {
           userData.data() as Map<String, dynamic>;
 
       // Make sure 'ownerName' is the correct field name in your Firestore document
-      return userDataMap['ownerName'] as String?;
+      return userDataMap['ownerName'] ?? 'Name';
     } else {
       return null;
     }

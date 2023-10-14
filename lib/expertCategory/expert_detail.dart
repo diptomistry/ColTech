@@ -112,7 +112,38 @@ class _DetailExpertState extends State<DetailExpert>
                           ),
                         ),
                         SingleChildScrollView(
-                          child: Column(children: [Text('Review')]),
+                          child: SizedBox(
+                              height: MediaQuery.of(context).size.height * 0.7,
+                              child: ListView.builder(
+                                  itemBuilder: (context, index) {
+                                return Container(
+                                  margin: EdgeInsets.only(
+                                      top: 17, left: 17, right: 17),
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.8,
+                                  height: 60,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(14),
+                                    color: Colors.white,
+                                    boxShadow: [
+                                      BoxShadow(
+                                        color: Colors.grey.shade100,
+                                        blurRadius: 10,
+                                        spreadRadius: 1,
+                                        offset: Offset(2, 1),
+                                      )
+                                    ],
+                                  ),
+                                  child: Center(
+                                      child: Text(
+                                    'Review',
+                                    style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 18),
+                                  )),
+                                );
+                              })),
                         )
                       ]),
                     ),

@@ -200,7 +200,7 @@ class _MyLoginState extends State<MyLogin> {
                                     Spacer(),//to push it to the right side of the row
                                     TextButton(
                                       onPressed: () {
-                                        Navigator.pushNamed(context, 'register');
+                                        Navigator.pushNamed(context, 'registeras');
                                       },
                                       child: Text(
                                         'Create Account',

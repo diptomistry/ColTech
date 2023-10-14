@@ -1,4 +1,5 @@
 import 'package:coltech/firebase_options.dart';
+import 'package:coltech/registerAs.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -21,6 +22,7 @@ Future<void> main() async {
       'register': (context) => MyRegister(),
       'login': (context) => MyLogin(),
       'welcome': (context) => Welcome(),
+      'registeras':(context) => RegisterAs(),
       'reset': (context) => ResetPassword(),
       'MyProfile': (context) => FutureBuilder<User?>(
         future: FirebaseAuth.instance.authStateChanges().first,

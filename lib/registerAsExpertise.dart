@@ -6,12 +6,12 @@ import 'package:flutter/material.dart';
 import 'package:coltech/profile.dart';
 import 'package:coltech/welcome.dart';
 
-class MyRegister extends StatefulWidget {
+class MyregisterEx extends StatefulWidget {
   @override
-  _MyRegisterState createState() => _MyRegisterState();
+  _MyregisterExState createState() => _MyregisterExState();
 }
 var flag;
-class _MyRegisterState extends State<MyRegister> {
+class _MyregisterExState extends State<MyregisterEx> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -32,9 +32,9 @@ class _MyRegisterState extends State<MyRegister> {
   }
 
   Future<void> storeUserData(User user) async {
-    CollectionReference users = FirebaseFirestore.instance.collection('users');
+    CollectionReference experts = FirebaseFirestore.instance.collection('experts');
 
-    await users.doc(user.uid).set({
+    await experts.doc(user.uid).set({
       'Name': _fullNameController.text,
       'Email':_emailController.text,
       'Profession':_ProfessionController.text,
@@ -64,13 +64,7 @@ class _MyRegisterState extends State<MyRegister> {
 
         else {
           flag=1;
-          // Navigator.push(
-          //   context,
-          //   CupertinoPageRoute(
-          //     builder: (context) =>
-          //         //EmailVerificationPage(isEmailVerified: false),
-          //   ),
-          // );
+
         }
 
       }
@@ -194,7 +188,7 @@ class _MyRegisterState extends State<MyRegister> {
                                       registration();
                                       // Perform registration logic
                                       if (password.length >= 6) {
-                                       // Navigator.pushNamed(context, 'welcome');
+                                        // Navigator.pushNamed(context, 'welcome');
                                         Navigator.push(
                                           context,
                                           CupertinoPageRoute(
@@ -280,7 +274,7 @@ class EmailVerificationPage extends StatelessWidget {
               onPressed: () {
                 // Navigate back to the login page
                 if(flag==1)
-                Navigator.pushNamed(context, 'welcome');
+                  Navigator.pushNamed(context, 'welcome');
               },
               child: Text('Go to Login'),
             ),

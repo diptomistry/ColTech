@@ -9,56 +9,82 @@ class _RegisterAsState extends State<RegisterAs> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Color(0XFF0d65f8),
-          title: Text('User Roles'),
+      appBar: AppBar(
+        backgroundColor: Color(0xFF214062),
+        title: Text('User Roles'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pushNamed(context, 'registerUser');
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize:Size(350, 30),
+                backgroundColor: Color(0xFF214062), // Background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0), // Rounded corners
+                ),
+                //padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // Padding
+              ),
+              child: Text(
+                'Register as Client',
+                style: TextStyle(
+                  color: Colors.white, // Text color
+                  fontSize: 16.0, // Text size
+                ),
+              ),
+            ),
+            SizedBox(height: 30.0), // Space between buttons
+            ElevatedButton(
+              onPressed: () {
+                // Implement login logic for expertise
+                print('Registered in as Expertise');
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize:Size(350, 30),
+                backgroundColor: Color(0xFF214062), // Background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0), // Rounded corners
+                ),
+                //padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // Padding
+              ),
+              child: Text(
+                'Register as Expertise',
+                style: TextStyle(
+                  color: Colors.white, // Text color
+                  fontSize: 16.0, // Text size
+                ),
+              ),
+            ),
+            SizedBox(height: 30.0), // Space between buttons
+            ElevatedButton(
+              onPressed: () {
+                // Implement login logic for admin
+                print('Registered as Admin');
+              },
+              style: ElevatedButton.styleFrom(
+                fixedSize:Size(350, 30),
+                backgroundColor: Color(0xFF214062), // Background color
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20.0), // Rounded corners
+                ),
+                //padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // Padding
+              ),
+              child: Text(
+                'Register as Admin',
+                style: TextStyle(
+                  color: Colors.white, // Text color
+                  fontSize: 16.0, // Text size
+                ),
+              ),
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              ElevatedButton(
-                onPressed: () {
-                  // Implement registration logic for clients
-                  print('Registered as Client');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF0d65f8), // Background color
-                ),
-                child: Text('Register as Client',
-
-                ),
-
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement login logic for expertise
-                  print('Registered in as Expertise');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF0d65f8), // Background color
-                ),
-                child: Text(
-                    'Register as Expertise',
-
-                ),
-              ),
-              ElevatedButton(
-                onPressed: () {
-                  // Implement login logic for admin
-                  print('Registered in as Admin');
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Color(0xFF0d65f8), // Background color
-                ),
-                child: Text(
-                    'Register as Admin',
-                  ),
-              ),
-            ],
-          ),
-        ),
-      );
-
+      ),
+    );
   }
 }

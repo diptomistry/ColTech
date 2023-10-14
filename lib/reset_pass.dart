@@ -65,6 +65,7 @@ class _ResetPasswordState extends State<ResetPassword> {
           'UniExcellence',
           style: TextStyle(fontWeight: FontWeight.bold),
         ),
+        backgroundColor: Color(0xFF214062),
         centerTitle: true,
       ),
       body: Padding(
@@ -102,7 +103,7 @@ class _ResetPasswordState extends State<ResetPassword> {
               ElevatedButton(
                 onPressed: _isResetting ? null : _resetPassword,
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.blueAccent,
+                  backgroundColor: Color(0xFF214062),
                   padding: EdgeInsets.symmetric(vertical: 16),
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10),

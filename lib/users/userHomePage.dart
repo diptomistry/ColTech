@@ -32,7 +32,7 @@ class _UserHomePageState extends State<UserHomePage> {
             ),
             //categories
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.4,
+              height: MediaQuery.of(context).size.height * 0.2,
               child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
@@ -78,19 +78,26 @@ class _UserHomePageState extends State<UserHomePage> {
                     );
                   }),
             ),
+            SizedBox(
+              height: 6,
+            ),
             Text(
-              'Past Bookings',
+              'Upcoming Schedules',
               style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
             ),
             SizedBox(
-              height: MediaQuery.of(context).size.height * 0.3,
+              height: 6,
+            ),
+            //upcoming schedules of user
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.26,
               child: ListView.builder(
-                  scrollDirection: Axis.vertical,
+                  scrollDirection: Axis.horizontal,
                   itemCount: 3,
                   itemBuilder: (context, index) {
                     return Container(
                       margin: EdgeInsets.only(
-                          left: 0, right: 18, top: 0, bottom: 4),
+                          left: 0, right: 18, top: 8, bottom: 8),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(10),
@@ -100,8 +107,87 @@ class _UserHomePageState extends State<UserHomePage> {
                                 spreadRadius: 2,
                                 blurRadius: 18)
                           ]),
-                      height: MediaQuery.of(context).size.height * 0.07,
-                      width: MediaQuery.of(context).size.width * 0.5,
+                      height: MediaQuery.of(context).size.height * 0.067,
+                      width: MediaQuery.of(context).size.width * 0.69,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              buildInfoContainer(
+                                  Icons.date_range, 'Date', '12 Dec'),
+                              buildInfoContainer(
+                                  Icons.access_time, 'Time', '10:00 AM'),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 7,
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              buildInfoContainer(
+                                  Icons.person, 'User', 'John Doe'),
+                              buildInfoContainer(Icons.location_on, 'Location',
+                                  'City, Country'),
+                            ],
+                          ),
+                          SizedBox(
+                            height: 10,
+                          ),
+                          Container(
+                            height: 30,
+                            width: 100,
+                            decoration: BoxDecoration(
+                                color: Colors.blue,
+                                borderRadius: BorderRadius.circular(20)),
+                            child: Center(
+                              child: Text(
+                                'Join',
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  }),
+            ),
+            SizedBox(
+              height: 6,
+            ),
+            Text(
+              'Past Bookings',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.w500),
+            ),
+            SizedBox(
+              height: 1,
+            ),
+            SizedBox(
+              height: MediaQuery.of(context).size.height * 0.239,
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  padding: EdgeInsets.all(9),
+                  itemCount: 3,
+                  shrinkWrap: true,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.grey.withOpacity(0.3),
+                                spreadRadius: 2,
+                                blurRadius: 10)
+                          ]),
+                      height: MediaQuery.of(context).size.height * 0.08,
+                      width: MediaQuery.of(context).size.width * 0.8,
+                      margin: EdgeInsets.all(3),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -131,6 +217,42 @@ class _UserHomePageState extends State<UserHomePage> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget buildInfoContainer(IconData icon, String text, String subtext) {
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.07,
+      width: MediaQuery.of(context).size.width * 0.3,
+      margin: EdgeInsets.only(right: 8, left: 2),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.grey.shade100,
+          boxShadow: [
+            BoxShadow(blurRadius: 2, color: Colors.blue.withOpacity(0.2))
+          ]),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Icon(icon),
+          SizedBox(width: 1),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                text,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              ),
+              Text(
+                subtext,
+                style: TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

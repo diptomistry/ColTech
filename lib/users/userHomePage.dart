@@ -1,5 +1,8 @@
+import 'package:coltech/expertCategory/allExperts.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class UserHomePage extends StatefulWidget {
   const UserHomePage({super.key});
@@ -37,43 +40,48 @@ class _UserHomePageState extends State<UserHomePage> {
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
                   itemBuilder: (context, index) {
-                    return Container(
-                      margin: EdgeInsets.only(
-                          left: 0, right: 10, top: 10, bottom: 10),
-                      decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: [
-                            BoxShadow(
-                                color: Colors.grey.withOpacity(0.3),
-                                spreadRadius: 2,
-                                blurRadius: 18)
-                          ]),
-                      height: MediaQuery.of(context).size.height * 0.08,
-                      width: MediaQuery.of(context).size.width * 0.5,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/ai.png',
-                            width: 40,
-                          ),
-                          Text(
-                            'Devops',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w700, fontSize: 20),
-                          ),
-                          SizedBox(
-                            height: 2,
-                          ),
-                          Text(
-                            '25 Available',
-                            style: TextStyle(
-                                fontWeight: FontWeight.w500,
-                                fontSize: 16,
-                                color: Colors.grey),
-                          )
-                        ],
+                    return InkWell(
+                      onTap: () {
+                        Get.to(() => AllExpertsPage(speakerId: 1));
+                      },
+                      child: Container(
+                        margin: EdgeInsets.only(
+                            left: 0, right: 10, top: 10, bottom: 10),
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(20),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: Colors.grey.withOpacity(0.3),
+                                  spreadRadius: 2,
+                                  blurRadius: 18)
+                            ]),
+                        height: MediaQuery.of(context).size.height * 0.08,
+                        width: MediaQuery.of(context).size.width * 0.5,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Image.asset(
+                              'assets/ai.png',
+                              width: 40,
+                            ),
+                            Text(
+                              'Devops',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w700, fontSize: 20),
+                            ),
+                            SizedBox(
+                              height: 2,
+                            ),
+                            Text(
+                              '25 Available',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w500,
+                                  fontSize: 16,
+                                  color: Colors.grey),
+                            )
+                          ],
+                        ),
                       ),
                     );
                   }),

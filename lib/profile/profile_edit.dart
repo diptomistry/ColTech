@@ -85,7 +85,7 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                         borderRadius: BorderRadius.circular(
                           screenHeight * 0.035,
                         ),
-                        color: Colors.blue,
+                        color: Color(0xff214062),
                       ),
                       child: InkWell(
                         onTap: _selectAndUploadImage,
@@ -208,12 +208,12 @@ class _UpdateProfileScreenState extends State<UpdateProfileScreen> {
                             content: getCustomFont(
                                 errorMessage, 14.7, Colors.white, 1,
                                 fontWeight: FontWeight.w600),
-                            backgroundColor: Colors.blue,
+                            backgroundColor: Color(0xff214062),
                           );
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blue,
+                          backgroundColor: Color(0xff214062),
                           side: BorderSide.none,
                           shape: StadiumBorder(),
                         ),

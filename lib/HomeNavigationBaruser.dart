@@ -17,7 +17,7 @@ class _UserNavState extends State<UserNav> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     UserHomePage(),
-    HomePage(),
+    //HomePage(),
     UserProfile(),
   ];
 

@@ -1,10 +1,15 @@
+import 'package:coltech/HomeNavigationBaruser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:material_design_icons_flutter/material_design_icons_flutter.dart';
 import 'package:coltech/userprofile.dart';
+
+import 'expertNavBar.dart';
 
 class MyLogin extends StatefulWidget {
   const MyLogin({Key? key}) : super(key: key);
@@ -235,9 +240,9 @@ class _MyLoginState extends State<MyLogin> {
                                 child: ElevatedButton(
                                   onPressed: (){
                                     if (args == 'client')
-                                      Navigator.pushNamed(context, 'userprofile');
+                                      Get.to(()=>UserNav());
                                     else if (args == 'expertise')
-                                      Navigator.pushNamed(context, 'expertprofile');
+                                      Get.to(()=>ExpertNav());
                                     else if (args == 'admin')
                                     Navigator.pushNamed(context, 'adminprofile');
                                   },

@@ -6,19 +6,20 @@ import 'package:coltech/users/userHomePage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-class UserNav extends StatefulWidget {
-  const UserNav({super.key});
+import 'expertprofile.dart';
+
+class ExpertNav extends StatefulWidget {
+  const ExpertNav({super.key});
 
   @override
-  State<UserNav> createState() => _UserNavState();
+  State<ExpertNav> createState() => _ExpertNavState();
 }
 
-class _UserNavState extends State<UserNav> {
+class _ExpertNavState extends State<ExpertNav> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
-  UserHomePage(),
-    HomePage(),
-    UserProfile(),
+    expertHomePage(),
+    ExpertProfile(),
   ];
 
   void _onItemTapped(int index) {
@@ -35,7 +36,6 @@ class _UserNavState extends State<UserNav> {
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: ''),
-          BottomNavigationBarItem(icon: Icon(Icons.search), label: ''),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: ''),
         ],
         onTap: _onItemTapped,

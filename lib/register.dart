@@ -72,14 +72,8 @@ class _MyRegisterState extends State<MyRegister> {
       child: Scaffold(
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title: Text(
-            'UniExcellence',
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 24,
-            ),
-          ),
-          backgroundColor: Colors.blueAccent,
+          elevation: 0,
+          backgroundColor: Color(0XFF0d65f8),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -188,7 +182,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   },
                                   child: Text('Register'),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.blueAccent,
+                                    backgroundColor: Color(0XFF0d65f8),
                                   ),
                                 ),
                               ),

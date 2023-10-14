@@ -2,12 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class UserProfile extends StatefulWidget {
+class UserProfile2 extends StatefulWidget {
+  final String email;
+
+  UserProfile2({required this.email});
+
+
   @override
-  _UserProfileState createState() => _UserProfileState();
+  _UserProfile2State createState() => _UserProfile2State();
 }
 
-class _UserProfileState extends State<UserProfile> {
+class _UserProfile2State extends State<UserProfile2> {
+
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -21,12 +27,19 @@ class _UserProfileState extends State<UserProfile> {
     super.initState();
     _user = _auth.currentUser!;
 
-    // Fetch user data from Firestore
-    _firestore.collection('users').doc(_user.uid).get().then((doc) {
-      if (doc.exists) {
+
+    // Search for the user's data based on the provided email
+    _firestore
+        .collection('users')
+        .where('Email', isEqualTo: widget.email)
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first document (assuming email is unique)
+        final doc = querySnapshot.docs[0];
         setState(() {
           _name = doc.data()?['Name'] ?? '';
-          _email = doc.data()?['Email'] ?? '';
+          //_email = doc.data()?['Email'] ?? '';
           _profession = doc.data()?['Profession'] ?? '';
         });
       }
@@ -35,6 +48,26 @@ class _UserProfileState extends State<UserProfile> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
+    _email = args;
+    _firestore
+        .collection('users')
+        .where('Email', isEqualTo: args)
+        .get()
+        .then((querySnapshot) {
+      if (querySnapshot.docs.isNotEmpty) {
+        // Get the first document (assuming email is unique)
+        final doc = querySnapshot.docs[0];
+        setState(() {
+          _name = doc.data()?['Name'] ?? '';
+          //_email = doc.data()?['Email'] ?? '';
+          _profession = doc.data()?['Profession'] ?? '';
+        });
+      }
+    });
+    //print(args);
+    //print('Email2: ${args}');
+
     return Scaffold(
       appBar: AppBar(
         title: Text('User Profile'),

@@ -19,10 +19,12 @@ class MyLogin extends StatefulWidget {
 }
 
 class _MyLoginState extends State<MyLogin> {
+  String email = '';
+  String password = '';
   TextEditingController _emailController = TextEditingController();
   bool _rememberPassword = false;
   bool _passwordVisible = false;
-  var email, password;
+  //var email, password;
   String errorMessage = '';
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
@@ -107,22 +109,25 @@ class _MyLoginState extends State<MyLogin> {
                       margin: EdgeInsets.only(left: 35, right: 35),
                       child: Column(
                         children: [
-                          TextField(
-                            style: TextStyle(color: Colors.black),
-                            decoration: InputDecoration(
-                              fillColor: Colors.grey.shade100,
-                              filled: true,
-                              hintText: "Email",
-                              border: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(20),
-                              ),
-                              prefixIcon: Icon(Icons.email),
-                            ),
-                            onChanged: (value) {
-                              email = value;
-                            },
-                          ),
-                          SizedBox(
+                       // Add this variable to capture the email
+
+                      TextField(
+                      style: TextStyle(color: Colors.black),
+                      decoration: InputDecoration(
+                        fillColor: Colors.grey.shade100,
+                        filled: true,
+                        hintText: "Email",
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(20),
+                        ),
+                        prefixIcon: Icon(Icons.email),
+                      ),
+                      onChanged: (value) {
+                        email = value; // Capture the entered email
+                      },
+                    ),
+
+                    SizedBox(
                             height: 30,
                           ),
                           TextField(
@@ -240,9 +245,26 @@ class _MyLoginState extends State<MyLogin> {
                                 child: ElevatedButton(
                                   onPressed: (){
                                     if (args == 'client')
-                                      Get.to(()=>UserNav());
+                                      {
+                                        //print( args+'dadsf'+email);
+                                        Navigator.pushNamed(
+                                          context,
+                                          'userprofile2',
+                                          arguments: email, // Pass the email as an argument
+                                        );
+
+                                      }
+                                      //Get.to(()=>UserNav());
                                     else if (args == 'expertise')
-                                      Get.to(()=>ExpertNav());
+                                      {
+                                        Navigator.pushNamed(
+                                          context,
+                                          'expertprofile2',
+                                          arguments: email, // Pass the email as an argument
+                                        );
+
+                                      }
+                                      //Get.to(()=>ExpertNav());
                                     else if (args == 'admin')
                                     Navigator.pushNamed(context, 'adminprofile');
                                   },

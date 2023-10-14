@@ -1,88 +1,3 @@
-//
-// import 'package:flutter/material.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-//
-// class ExpertProfile extends StatefulWidget {
-//   @override
-//   _ExpertProfileState createState() => _ExpertProfileState();
-// }
-//
-// class _ExpertProfileState extends State<ExpertProfile> {
-//   String fullName = '';
-//   String email = '';
-//   String profession = '';
-//   String skill = '';
-//
-//   @override
-//   void initState() {
-//     super.initState();
-//    // _user = _auth.currentUser!;
-//     // Fetch expert data from Firestore
-//     FirebaseFirestore.instance.collection('experts').doc('your_expert_document_id').get().then((doc) {
-//       if (doc.exists) {
-//         setState(() {
-//           fullName = doc.data()?['Full Name'] ?? '';
-//           email = doc.data()?['Email'] ?? '';
-//           profession = doc.data()?['Profession'] ?? '';
-//           skill = doc.data()?['Skill'] ?? '';
-//         });
-//       }
-//     });
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: Text('Expert Profile'),
-//       ),
-//       body: Column(
-//         mainAxisAlignment: MainAxisAlignment.center,
-//         children: <Widget>[
-//           CircleAvatar(
-//             radius: 80,
-//             backgroundImage: AssetImage('assets/image1.png'), // Set the profile picture image
-//           ),
-//           SizedBox(height: 20),
-//           Align(
-//             alignment: Alignment.centerLeft,
-//             child: Column(
-//               crossAxisAlignment: CrossAxisAlignment.start,
-//               children: <Widget>[
-//                 Text(
-//                   fullName,
-//                   style: TextStyle(
-//                     fontSize: 24,
-//                     fontWeight: FontWeight.bold,
-//                   ),
-//                 ),
-//                 Text(
-//                   profession,
-//                   style: TextStyle(
-//                     fontSize: 18,
-//                   ),
-//                 ),
-//                 Text(
-//                   email,
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                   ),
-//                 ),
-//                 Text(
-//                   skill,
-//                   style: TextStyle(
-//                     fontSize: 16,
-//                   ),
-//                 ),
-//                 // Add more fields as needed
-//               ],
-//             ),
-//           ),
-//         ],
-//       ),
-//     );
-//   }
-// }
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -105,7 +20,7 @@ class _ExpertProfileState extends State<ExpertProfile> {
   @override
   void initState() {
     super.initState();
-    _expert = _auth.currentUser!;
+    _expert= _auth.currentUser!;
 
     // Fetch user data from Firestore
     _firestore.collection('experts').doc(_expert.uid).get().then((doc) {
@@ -126,47 +41,111 @@ class _ExpertProfileState extends State<ExpertProfile> {
       appBar: AppBar(
         title: Text('Expert Profile'),
       ),
-      body: Center(
+      body: SingleChildScrollView(
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            CircleAvatar(
-              radius: 80,
-              backgroundImage: AssetImage('assets/image1.png'), // Set the profile picture image
+          children: [
+            Stack(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 220,
+                  decoration: BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.blue,
+                        Colors.lightBlue,
+                      ],
+                    ),
+                  ),
+                ),
+                Positioned(
+                  left: 16,
+                  right: 16,
+                  top: 100,
+                  child: GestureDetector(
+                    onTap: () {
+                      // Implement the image change logic here
+                    },
+                    child: Stack(
+                      children: [
+                        CircleAvatar(
+                          radius: 70.0,
+                          backgroundImage: AssetImage('assets/image1.png'),
+                        ),
+                        Positioned(
+                          bottom: 0,
+                          right: 0,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: IconButton(
+                              icon: Icon(Icons.camera_alt),
+                              onPressed: () {
+                                // Implement the image change logic here
+                              },
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
             SizedBox(height: 20),
-            Align(
-              alignment: Alignment.centerLeft,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    _name,
-                    style: TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
+            Card(
+              margin: EdgeInsets.symmetric(horizontal: 16),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    SizedBox(height: 20),
+                    Text(
+                      'Name',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Text(
-                    _profession,
-                    style: TextStyle(
-                      fontSize: 18,
+                    SizedBox(height: 10),
+                    Text(
+                      _name,
+                      style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                  Text(
-                    _skill,
-                    style: TextStyle(
-                      fontSize: 16,
+                    SizedBox(height: 20),
+                    Text(
+                      'Email',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                     ),
-                  ),
-                  Text(
-                    _email,
-                    style: TextStyle(
-                      fontSize: 16,
+                    SizedBox(height: 10),
+                    Text(
+                      _email,
+                      style: TextStyle(fontSize: 16),
                     ),
-                  ),
-                  // Add more fields as needed
-                ],
+                    SizedBox(height: 20),
+                    Text(
+                      'Skill',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      _skill,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                    SizedBox(height: 20),
+                    Text(
+                      'Profession',
+                      style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    ),
+                    SizedBox(height: 10),
+                    Text(
+                      _profession,
+                      style: TextStyle(fontSize: 16),
+                    ),
+                  ],
+                ),
               ),
             ),
           ],
@@ -175,5 +154,3 @@ class _ExpertProfileState extends State<ExpertProfile> {
     );
   }
 }
-
-

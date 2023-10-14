@@ -3,6 +3,7 @@ import 'package:coltech/register.dart';
 import 'package:coltech/registerAs.dart';
 
 import 'package:coltech/registerAsExpertise.dart';
+import 'package:coltech/userprofile2.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -14,6 +15,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 import 'adminLogin.dart';
 import 'expertprofile.dart';
+
+import 'expertprofile2.dart';
 import 'home.dart';
 import 'login.dart';
 Future<void> main() async {
@@ -35,7 +38,9 @@ Future<void> main() async {
       'admin': (context) => AdminLogin(),
       'registerasExpert':(context) => MyregisterEx(),
       'userprofile': (context) => UserProfile(),
+      'userprofile2': (context) => UserProfile2(email: '',),
       'expertprofile': (context) => ExpertProfile(),
+      "expertprofile2": (context) => ExpartProfile2(email: '',),
 
     },
   ));

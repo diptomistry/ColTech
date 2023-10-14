@@ -22,7 +22,7 @@ class _UserProfileState extends State<UserProfile> {
     _user = _auth.currentUser!;
 
     // Fetch user data from Firestore
-    _firestore.collection('experts').doc(_user.uid).get().then((doc) {
+    _firestore.collection('users').doc(_user.uid).get().then((doc) {
       if (doc.exists) {
         setState(() {
           _name = doc.data()?['Name'];

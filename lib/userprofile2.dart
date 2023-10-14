@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+
+import 'HomeNavigationBaruser.dart';
 
 class UserProfile2 extends StatefulWidget {
   final String email;
 
   UserProfile2({required this.email});
 
-
   @override
   _UserProfile2State createState() => _UserProfile2State();
 }
 
 class _UserProfile2State extends State<UserProfile2> {
-
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
@@ -27,7 +29,6 @@ class _UserProfile2State extends State<UserProfile2> {
     super.initState();
     _user = _auth.currentUser!;
 
-
     // Search for the user's data based on the provided email
     _firestore
         .collection('users')
@@ -39,7 +40,6 @@ class _UserProfile2State extends State<UserProfile2> {
         final doc = querySnapshot.docs[0];
         setState(() {
           _name = doc.data()?['Name'] ?? '';
-          //_email = doc.data()?['Email'] ?? '';
           _profession = doc.data()?['Profession'] ?? '';
         });
       }
@@ -60,13 +60,11 @@ class _UserProfile2State extends State<UserProfile2> {
         final doc = querySnapshot.docs[0];
         setState(() {
           _name = doc.data()?['Name'] ?? '';
-          //_email = doc.data()?['Email'] ?? '';
+          _email = doc.data()?['Email'] ?? '';
           _profession = doc.data()?['Profession'] ?? '';
         });
       }
     });
-    //print(args);
-    //print('Email2: ${args}');
 
     return Scaffold(
       appBar: AppBar(
@@ -168,6 +166,14 @@ class _UserProfile2State extends State<UserProfile2> {
                   ],
                 ),
               ),
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              onPressed: () {
+                // Implement navigation to the dashboard screen here
+                Get.to(()=>UserNav());
+              },
+              child: Text('Dashboard'),
             ),
           ],
         ),

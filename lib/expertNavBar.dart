@@ -7,6 +7,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'expertprofile.dart';
+import 'expertprofile2.dart';
 
 class ExpertNav extends StatefulWidget {
   const ExpertNav({super.key});
@@ -19,7 +20,7 @@ class _ExpertNavState extends State<ExpertNav> {
   int _selectedIndex = 0;
   final List<Widget> _pages = [
     expertHomePage(),
-    ExpertProfile(),
+    ExpartProfile2(email: '',),
   ];
 
   void _onItemTapped(int index) {

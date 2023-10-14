@@ -13,6 +13,8 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 
 import 'adminLogin.dart';
+import 'expertprofile.dart';
+import 'home.dart';
 import 'login.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -22,8 +24,9 @@ Future<void> main() async {
 
   runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
-    home: MyLogin(),
+    home: HomeScreen(),
     routes: {
+      'homescreen': (context) => HomeScreen(),
       'registerUser': (context) => MyRegister(),
       'login': (context) => MyLogin(),
       'welcome': (context) => Welcome(),
@@ -32,6 +35,7 @@ Future<void> main() async {
       'admin': (context) => AdminLogin(),
       'registerasExpert':(context) => MyregisterEx(),
       'userprofile': (context) => UserProfile(),
+      'expertprofile': (context) => ExpertProfile(),
 
     },
   ));

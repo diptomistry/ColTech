@@ -62,15 +62,12 @@ class _MyregisterExState extends State<MyregisterEx> {
         // Send email verification
         await user.sendEmailVerification();
 
-        if (await FirebaseAuth.instance.currentUser!.emailVerified)
-          flag2=0;
 
-        else {
-          flag2=1;
 
-        }
+
 
       }
+      final user1=FirebaseAuth.instance.currentUser;
     } catch (e) {
       print('Registration failed: $e');
     }
@@ -285,9 +282,13 @@ class EmailVerificationPage extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // Navigate back to the login page
-                if(flag2==1)
-                  Navigator.pushNamed(context, 'welcome');
+                // Call the registrationCallback function when the button is pressed
+                FirebaseAuth.instance.currentUser?.reload();
+                final user=FirebaseAuth.instance.currentUser;
+                if(user!.emailVerified){
+                  Navigator.pushNamed(context, 'expertprofile');
+                }
+
               },
               child: Text('Go to Login'),
             ),

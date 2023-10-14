@@ -22,7 +22,7 @@ class _UserProfileState extends State<UserProfile> {
     _user = _auth.currentUser!;
 
     // Fetch user data from Firestore
-    _firestore.collection('users').doc(_user.uid).get().then((doc) {
+    _firestore.collection('experts').doc(_user.uid).get().then((doc) {
       if (doc.exists) {
         setState(() {
           _name = doc.data()?['Name'];
@@ -43,10 +43,39 @@ class _UserProfileState extends State<UserProfile> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            Text('Name: $_name'),
-            Text('Email: $_email'),
-            Text('Profession: $_profession'),
-            // Add more fields as needed
+            CircleAvatar(
+              radius: 80,
+              backgroundImage: AssetImage('assets/image1.png'), // Set the profile picture image
+            ),
+            SizedBox(height: 20),
+            Align(
+              alignment: Alignment.centerLeft,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    _name,
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  Text(
+                    _profession,
+                    style: TextStyle(
+                      fontSize: 18,
+                    ),
+                  ),
+                  Text(
+                    _email,
+                    style: TextStyle(
+                      fontSize: 16,
+                    ),
+                  ),
+                  // Add more fields as needed
+                ],
+              ),
+            ),
           ],
         ),
       ),

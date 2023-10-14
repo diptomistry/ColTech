@@ -71,6 +71,7 @@ class _MyLoginState extends State<MyLogin> {
 
   @override
   Widget build(BuildContext context) {
+    final args = ModalRoute.of(context)!.settings.arguments as String;
     return Container(
       //to set bg image
       decoration: BoxDecoration(
@@ -232,7 +233,14 @@ class _MyLoginState extends State<MyLogin> {
                               Expanded(
                                 //button in the whole row
                                 child: ElevatedButton(
-                                  onPressed: login,
+                                  onPressed: (){
+                                    if (args == 'client')
+                                      Navigator.pushNamed(context, 'userprofile');
+                                    else if (args == 'expertise')
+                                      Navigator.pushNamed(context, 'expertprofile');
+                                    else if (args == 'admin')
+                                    Navigator.pushNamed(context, 'adminprofile');
+                                  },
                                   child: Text(
                                     'Login',
                                     style: TextStyle(fontSize: 16),

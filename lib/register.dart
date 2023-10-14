@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:coltech/HomeNavigationBaruser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -9,13 +10,13 @@ class MyRegister extends StatefulWidget {
   @override
   _MyRegisterState createState() => _MyRegisterState();
 }
-
+var flag;
 class _MyRegisterState extends State<MyRegister> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
-  TextEditingController _universityController = TextEditingController();
-  TextEditingController _cgpaController = TextEditingController();
+  TextEditingController _ProfessionController = TextEditingController();
+
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
 
@@ -23,11 +24,23 @@ class _MyRegisterState extends State<MyRegister> {
   void dispose() {
     _fullNameController.dispose();
     _emailController.dispose();
-    _universityController.dispose();
-    _cgpaController.dispose();
+    _ProfessionController.dispose();
+
     _passwordController.dispose();
     _confirmPasswordController.dispose();
     super.dispose();
+  }
+
+  Future<void> storeUserData(User user) async {
+    CollectionReference users = FirebaseFirestore.instance.collection('users');
+
+    await users.doc(user.uid).set({
+      'Name': _fullNameController.text,
+      'Email':_emailController.text,
+      'Profession':_ProfessionController.text,
+
+      // Add more fields as needed
+    });
   }
 
   var email, password;
@@ -41,10 +54,24 @@ class _MyRegisterState extends State<MyRegister> {
           .user;
 
       if (user != null) {
+        // Store user data in Firestore
+        await storeUserData(user);
         // Send email verification
         await user.sendEmailVerification();
 
-        // Navigate to email verification page
+        if (await FirebaseAuth.instance.currentUser!.emailVerified)
+          flag=0;
+
+        else {
+          flag=1;
+          // Navigator.push(
+          //   context,
+          //   CupertinoPageRoute(
+          //     builder: (context) =>
+          //         //EmailVerificationPage(isEmailVerified: false),
+          //   ),
+          // );
+        }
 
       }
     } catch (e) {
@@ -73,7 +100,7 @@ class _MyRegisterState extends State<MyRegister> {
         backgroundColor: Colors.transparent,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Color(0XFF0d65f8),
+          backgroundColor: Color(0xFF214062),
           centerTitle: true,
           leading: IconButton(
             icon: Icon(Icons.arrow_back),
@@ -123,19 +150,16 @@ class _MyRegisterState extends State<MyRegister> {
                             },
                           ),
                           roundedTextField(
-                            controller: _universityController,
-                            hintText: 'University',
+                            controller: _ProfessionController,
+                            hintText: 'Profession',
                             validator: (value) {
                               if (value!.isEmpty) {
-                                return 'Please enter your university name';
+                                return 'Please enter your Profession name';
                               }
                               return null;
                             },
                           ),
-                          roundedTextField(
-                            controller: _cgpaController,
-                            hintText: 'CGPA (optional)',
-                          ),
+
                           roundedTextField(
                             controller: _passwordController,
                             hintText: 'Password',
@@ -182,7 +206,7 @@ class _MyRegisterState extends State<MyRegister> {
                                   },
                                   child: Text('Register'),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Color(0XFF0d65f8),
+                                    backgroundColor: Color(0xFF214062),
                                   ),
                                 ),
                               ),
@@ -255,6 +279,7 @@ class EmailVerificationPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Navigate back to the login page
+                if(flag==1)
                 Navigator.pushNamed(context, 'welcome');
               },
               child: Text('Go to Login'),

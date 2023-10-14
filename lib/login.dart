@@ -173,6 +173,7 @@ class _MyLoginState extends State<MyLogin> {
                                       child: Text(
                                         'Forgot Password',
                                         style: TextStyle(
+                                          color: Color(0xFF214062),
                                           decoration: TextDecoration.underline,
                                           fontSize: 12,
                                         ),
@@ -205,6 +206,7 @@ class _MyLoginState extends State<MyLogin> {
                                       child: Text(
                                         'Create Account',
                                         style: TextStyle(
+                                          color: Color(0xFF214062),
                                           decoration: TextDecoration.underline,
                                           fontSize: 13,
                                         ),
@@ -227,7 +229,7 @@ class _MyLoginState extends State<MyLogin> {
                                     style: TextStyle(fontSize: 16),
                                   ),
                                   style: ElevatedButton.styleFrom(
-                                    backgroundColor: Colors.black54, // Customize the button color
+                                    backgroundColor: Color(0XFF214062), // Customize the button color
                                     foregroundColor: Colors.white, // Customize the text color
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(10),

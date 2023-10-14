@@ -20,7 +20,6 @@ class _UserNavState extends State<UserNav> {
   ];
 
   void _onItemTapped(int index) {
-    print(index);
     setState(() {
       _selectedIndex = index;
     });

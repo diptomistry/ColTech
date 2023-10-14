@@ -150,6 +150,7 @@ class _UserHomePageState extends State<expertHomePage> {
           Transform.translate(
             offset: Offset(0, 10), // Move the container 2 pixels down
             child: Container(
+              color: Colors.lightBlue,
               child: Column(
                 children: [
                   Image.asset(
@@ -163,36 +164,39 @@ class _UserHomePageState extends State<expertHomePage> {
                       fontSize: 15,
                     ),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Center(
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              // Add your logic for Accept here
-                            },
-                            child: Icon(Icons.check),
-                            backgroundColor: Colors.green,
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: Center(
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                // Add your logic for Accept here
+                              },
+                              child: Icon(Icons.check),
+                              backgroundColor: Colors.green,
+                            ),
                           ),
                         ),
-                      ),
-                      SizedBox(
-                        height: 30,
-                        width: 30,
-                        child: Center(
-                          child: FloatingActionButton(
-                            onPressed: () {
-                              // Add your logic for Reject here
-                            },
-                            child: Icon(Icons.close),
-                            backgroundColor: Colors.red,
+                        SizedBox(
+                          height: 30,
+                          width: 30,
+                          child: Center(
+                            child: FloatingActionButton(
+                              onPressed: () {
+                                // Add your logic for Reject here
+                              },
+                              child: Icon(Icons.close),
+                              backgroundColor: Colors.red,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ],
               ),

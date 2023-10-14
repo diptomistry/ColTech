@@ -41,8 +41,7 @@ class _RegisterAsState extends State<RegisterAs> {
             SizedBox(height: 30.0), // Space between buttons
             ElevatedButton(
               onPressed: () {
-                // Implement login logic for expertise
-                print('Registered in as Expertise');
+                Navigator.pushNamed(context, 'registerasExpert');
               },
               style: ElevatedButton.styleFrom(
                 fixedSize:Size(350, 30),
@@ -63,8 +62,7 @@ class _RegisterAsState extends State<RegisterAs> {
             SizedBox(height: 30.0), // Space between buttons
             ElevatedButton(
               onPressed: () {
-                // Implement login logic for admin
-                print('Registered as Admin');
+                Navigator.pushNamed(context, 'admin');
               },
               style: ElevatedButton.styleFrom(
                 fixedSize:Size(350, 30),
@@ -75,7 +73,7 @@ class _RegisterAsState extends State<RegisterAs> {
                 //padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0), // Padding
               ),
               child: Text(
-                'Register as Admin',
+                'Login as Admin',
                 style: TextStyle(
                   color: Colors.white, // Text color
                   fontSize: 16.0, // Text size

@@ -3,19 +3,20 @@ import 'package:coltech/HomeNavigationBaruser.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:coltech/profile.dart';
+import 'package:coltech/userprofile.dart';
 import 'package:coltech/welcome.dart';
 
 class MyregisterEx extends StatefulWidget {
   @override
   _MyregisterExState createState() => _MyregisterExState();
 }
-var flag;
+var flag2;
 class _MyregisterExState extends State<MyregisterEx> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
   TextEditingController _ProfessionController = TextEditingController();
+  TextEditingController _SkillController = TextEditingController();
 
   TextEditingController _passwordController = TextEditingController();
   TextEditingController _confirmPasswordController = TextEditingController();
@@ -25,6 +26,7 @@ class _MyregisterExState extends State<MyregisterEx> {
     _fullNameController.dispose();
     _emailController.dispose();
     _ProfessionController.dispose();
+    _SkillController.dispose();
 
     _passwordController.dispose();
     _confirmPasswordController.dispose();
@@ -38,6 +40,7 @@ class _MyregisterExState extends State<MyregisterEx> {
       'Name': _fullNameController.text,
       'Email':_emailController.text,
       'Profession':_ProfessionController.text,
+      'Skill':_SkillController.text,
 
       // Add more fields as needed
     });
@@ -60,10 +63,10 @@ class _MyregisterExState extends State<MyregisterEx> {
         await user.sendEmailVerification();
 
         if (await FirebaseAuth.instance.currentUser!.emailVerified)
-          flag=0;
+          flag2=0;
 
         else {
-          flag=1;
+          flag2=1;
 
         }
 
@@ -149,6 +152,16 @@ class _MyregisterExState extends State<MyregisterEx> {
                             validator: (value) {
                               if (value!.isEmpty) {
                                 return 'Please enter your Profession name';
+                              }
+                              return null;
+                            },
+                          ),
+                          roundedTextField(
+                            controller: _SkillController,
+                            hintText: 'Skill',
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return 'Please enter your Skill name';
                               }
                               return null;
                             },
@@ -273,7 +286,7 @@ class EmailVerificationPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 // Navigate back to the login page
-                if(flag==1)
+                if(flag2==1)
                   Navigator.pushNamed(context, 'welcome');
               },
               child: Text('Go to Login'),

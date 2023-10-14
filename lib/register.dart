@@ -1,17 +1,23 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coltech/HomeNavigationBaruser.dart';
+import 'package:coltech/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:coltech/profile.dart';
-import 'package:coltech/welcome.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class MyRegister extends StatefulWidget {
+
   @override
   _MyRegisterState createState() => _MyRegisterState();
 }
-var flag;
+
 class _MyRegisterState extends State<MyRegister> {
+  //late Timer _timer;
+  //var flag = 0;
   final _formKey = GlobalKey<FormState>();
   TextEditingController _fullNameController = TextEditingController();
   TextEditingController _emailController = TextEditingController();
@@ -36,15 +42,16 @@ class _MyRegisterState extends State<MyRegister> {
 
     await users.doc(user.uid).set({
       'Name': _fullNameController.text,
-      'Email':_emailController.text,
-      'Profession':_ProfessionController.text,
-
+      'Email': _emailController.text,
+      'Profession': _ProfessionController.text,
       // Add more fields as needed
     });
   }
 
   var email, password;
+
   registration() async {
+    //print("hello");
     FirebaseAuth firebaseAuth = FirebaseAuth.instance;
     try {
       final User? user = (await firebaseAuth.createUserWithEmailAndPassword(
@@ -54,38 +61,30 @@ class _MyRegisterState extends State<MyRegister> {
           .user;
 
       if (user != null) {
+        print("he");
         // Store user data in Firestore
         await storeUserData(user);
         // Send email verification
         await user.sendEmailVerification();
+        //
 
-        if (await FirebaseAuth.instance.currentUser!.emailVerified)
-          flag=0;
 
-        else {
-          flag=1;
-          // Navigator.push(
-          //   context,
-          //   CupertinoPageRoute(
-          //     builder: (context) =>
-          //         //EmailVerificationPage(isEmailVerified: false),
-          //   ),
-          // );
-        }
 
       }
+      final user1=FirebaseAuth.instance.currentUser;
+
     } catch (e) {
       print('Registration failed: $e');
     }
-  }
+    print("hello");
 
+  }
 
   bool validateEmail(String email) {
     final RegExp emailRegex =
     RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$', caseSensitive: false);
     return emailRegex.hasMatch(email);
   }
-
 
   @override
   Widget build(BuildContext context) {
@@ -159,7 +158,6 @@ class _MyRegisterState extends State<MyRegister> {
                               return null;
                             },
                           ),
-
                           roundedTextField(
                             controller: _passwordController,
                             hintText: 'Password',
@@ -194,7 +192,6 @@ class _MyRegisterState extends State<MyRegister> {
                                       registration();
                                       // Perform registration logic
                                       if (password.length >= 6) {
-                                       // Navigator.pushNamed(context, 'welcome');
                                         Navigator.push(
                                           context,
                                           CupertinoPageRoute(
@@ -224,6 +221,7 @@ class _MyRegisterState extends State<MyRegister> {
       ),
     );
   }
+
   Widget roundedTextField({
     required TextEditingController controller,
     required String hintText,
@@ -252,10 +250,15 @@ class _MyRegisterState extends State<MyRegister> {
       ),
     );
   }
-
 }
 
 class EmailVerificationPage extends StatelessWidget {
+ // final user;
+  //EmailVerificationPage(this.user);
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -278,9 +281,13 @@ class EmailVerificationPage extends StatelessWidget {
             SizedBox(height: 16),
             ElevatedButton(
               onPressed: () {
-                // Navigate back to the login page
-                if(flag==1)
-                Navigator.pushNamed(context, 'welcome');
+                // Call the registrationCallback function when the button is pressed
+                FirebaseAuth.instance.currentUser?.reload();
+                final user=FirebaseAuth.instance.currentUser;
+                if(user!.emailVerified){
+                  Navigator.pushNamed(context, 'userprofile');
+                }
+
               },
               child: Text('Go to Login'),
             ),
@@ -290,7 +297,3 @@ class EmailVerificationPage extends StatelessWidget {
     );
   }
 }
-
-
-
-

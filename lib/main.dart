@@ -6,11 +6,13 @@ import 'package:coltech/registerAsExpertise.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:coltech/profile.dart';
+import 'package:coltech/userprofile.dart';
 import 'package:coltech/reset_pass.dart';
 import 'package:coltech/welcome.dart';
+import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 
+import 'adminLogin.dart';
 import 'login.dart';
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -18,7 +20,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  runApp(MaterialApp(
+  runApp(GetMaterialApp(
     debugShowCheckedModeBanner: false,
     home: MyLogin(),
     routes: {
@@ -27,20 +29,10 @@ Future<void> main() async {
       'welcome': (context) => Welcome(),
       'registeras':(context) => RegisterAs(),
       'reset': (context) => ResetPassword(),
+      'admin': (context) => AdminLogin(),
       'registerasExpert':(context) => MyregisterEx(),
-      'MyProfile': (context) => FutureBuilder<User?>(
-        future: FirebaseAuth.instance.authStateChanges().first,
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            // Return a loading indicator or splash screen while waiting for user data
-            return CircularProgressIndicator();
-          } else {
-            User? user = snapshot.data;
-            String? email = user?.email;
-            return Profile(user: user, email: email);
-          }
-        },
-      ),
+      'userprofile': (context) => UserProfile(),
+
     },
   ));
 }

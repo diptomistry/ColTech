@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "506627182621",
+    "project_id": "colltech",
+    "storage_bucket": "colltech.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:506627182621:android:5948bb095fb8a98751b6f4",
+        "android_client_info": {
+          "package_name": "com.example.coltech"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMa3LbPTj2cmNNAZm3tbGbdsPRDiSOvs0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

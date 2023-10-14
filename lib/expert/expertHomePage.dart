@@ -160,25 +160,37 @@ class _UserHomePageState extends State<expertHomePage> {
                     'Rasel requested a consultation',
                     style: TextStyle(
                       fontWeight: FontWeight.w700,
-                      fontSize: 20,
+                      fontSize: 15,
                     ),
                   ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      FloatingActionButton(
-                        onPressed: () {
-                          // Add your logic for Accept here
-                        },
-                        child: Icon(Icons.check),
-                        backgroundColor: Colors.green,
+                      SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Center(
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              // Add your logic for Accept here
+                            },
+                            child: Icon(Icons.check),
+                            backgroundColor: Colors.green,
+                          ),
+                        ),
                       ),
-                      FloatingActionButton(
-                        onPressed: () {
-                          // Add your logic for Reject here
-                        },
-                        child: Icon(Icons.close),
-                        backgroundColor: Colors.red,
+                      SizedBox(
+                        height: 30,
+                        width: 30,
+                        child: Center(
+                          child: FloatingActionButton(
+                            onPressed: () {
+                              // Add your logic for Reject here
+                            },
+                            child: Icon(Icons.close),
+                            backgroundColor: Colors.red,
+                          ),
+                        ),
                       ),
                     ],
                   ),

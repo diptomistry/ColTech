@@ -44,7 +44,9 @@ dependencies:
   image_picker:
   get:
   line_awesome_flutter:
-
+  flutter_screenutil:
+  flutter_rating_bar:
+  font_awesome_flutter:
 
 dev_dependencies:
   flutter_test:

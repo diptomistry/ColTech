@@ -11,11 +11,11 @@ import 'package:coltech/reset_pass.dart';
 import 'package:coltech/welcome.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 
-
 import 'adminLogin.dart';
 import 'expertprofile.dart';
 import 'home.dart';
 import 'login.dart';
+
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -30,16 +30,12 @@ Future<void> main() async {
       'registerUser': (context) => MyRegister(),
       'login': (context) => MyLogin(),
       'welcome': (context) => Welcome(),
-      'registeras':(context) => RegisterAs(),
+      'registeras': (context) => RegisterAs(),
       'reset': (context) => ResetPassword(),
       'admin': (context) => AdminLogin(),
-      'registerasExpert':(context) => MyregisterEx(),
+      'registerasExpert': (context) => MyregisterEx(),
       'userprofile': (context) => UserProfile(),
       'expertprofile': (context) => ExpertProfile(),
-
     },
   ));
 }
-
-
-

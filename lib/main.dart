@@ -1,12 +1,15 @@
 import 'package:coltech/firebase_options.dart';
+import 'package:coltech/register.dart';
 import 'package:coltech/registerAs.dart';
+
+import 'package:coltech/registerAsExpertise.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:coltech/profile.dart';
 import 'package:coltech/reset_pass.dart';
 import 'package:coltech/welcome.dart';
-import 'package:coltech/register.dart';
+
 
 import 'login.dart';
 
@@ -20,11 +23,12 @@ Future<void> main() async {
     debugShowCheckedModeBanner: false,
     home: MyLogin(),
     routes: {
-      'register': (context) => MyRegister(),
+      'registerUser': (context) => MyRegister(),
       'login': (context) => MyLogin(),
       'welcome': (context) => Welcome(),
       'registeras': (context) => RegisterAs(),
       'reset': (context) => ResetPassword(),
+      'registerasExpert':(context) => MyregisterEx(),
       'MyProfile': (context) => FutureBuilder<User?>(
             future: FirebaseAuth.instance.authStateChanges().first,
             builder: (context, snapshot) {

@@ -20,7 +20,7 @@ class _RegisterAsState extends State<RegisterAs> {
 
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'register');
+                Navigator.pushNamed(context, 'registerUser');
               },
               style: ElevatedButton.styleFrom(
                 fixedSize:Size(350, 30),

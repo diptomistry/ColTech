@@ -97,10 +97,10 @@ class _ExpertProfileState extends State<ExpertProfile> {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
   late User _expert;
-  late String _name;
-  late String _email;
-  late String _profession;
-  late String _skill;
+  late String _name='';
+  late String _email='';
+  late String _profession='';
+  late String _skill='';
 
   @override
   void initState() {

@@ -11,10 +11,11 @@ class _UserProfileState extends State<UserProfile> {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+
   late User _user;
-  late String _name;
-  late String _email;
-  late String _profession;
+  late String _name = ''; // Initialize with an empty string
+  late String _email = ''; // Initialize with an empty string
+  late String _profession = ''; // Initialize with an empty string
 
   @override
   void initState() {

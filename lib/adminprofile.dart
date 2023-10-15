@@ -1,32 +1,97 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_email_sender/flutter_email_sender.dart';
 
 class AdminProfile extends StatefulWidget {
   @override
   _AdminProfileState createState() => _AdminProfileState();
 }
 
+class EmailMessage {
+  final String subject;
+  final String message;
+  final List<String> recipients;
+
+  EmailMessage({
+  required this.subject,
+  required this .message,
+  required this.recipients,
+});
+}
+
 class _AdminProfileState extends State<AdminProfile> {
-  CollectionReference _userCollection =
-  FirebaseFirestore.instance.collection('users'); // Replace with your user collection name
-  CollectionReference _expertCollection =
-  FirebaseFirestore.instance.collection('experts'); // Replace with your expert collection name
+  final CollectionReference _userCollection = FirebaseFirestore.instance.collection('users');
+  final CollectionReference _expertCollection = FirebaseFirestore.instance.collection('experts');
 
   Future<List<DocumentSnapshot>> getData(CollectionReference collectionRef) async {
     QuerySnapshot querySnapshot = await collectionRef.get();
     return querySnapshot.docs;
   }
 
+  List<String> selectedEmails = [];
+
+  void toggleEmailSelection(String email) {
+    if (selectedEmails.contains(email)) {
+      setState(() {
+        selectedEmails.remove(email);
+      });
+    } else {
+      setState(() {
+        selectedEmails.add(email);
+      });
+    }
+  }
+
+  void sendSelectedEmails() {
+    if (selectedEmails.isNotEmpty) {
+      String subject = 'Notification from Admin';
+      String message = ''; // You can retrieve the message from a text field
+
+      final emailMessage = EmailMessage(
+        subject: subject,
+        message: message,
+        recipients: selectedEmails,
+      );
+
+      try {
+        sendEmail(emailMessage);
+        print('Email sent');
+      } catch (error) {
+        print('Error sending email: $error');
+      }
+    }
+  }
+
+  Future<void> sendEmail(EmailMessage emailMessage) async {
+    final Email email = Email(
+      subject: emailMessage.subject,
+      body: emailMessage.message,
+      recipients: emailMessage.recipients,
+      isHTML: false,
+    );
+
+    await FlutterEmailSender.send(email);
+  }
+
   void deleteUserProfile(CollectionReference collectionRef, String userId) async {
     await collectionRef.doc(userId).delete();
+    setState(() {
+      selectedEmails.removeWhere((email) => email.contains(userId));
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admin Profile'),
-        backgroundColor:  Color(0xFF214062),
+        title: Text(
+          'Admin Profile',
+          style: TextStyle(
+            color: Colors.blueAccent,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+        backgroundColor: Color(0xFF214062),
       ),
       body: FutureBuilder<List<DocumentSnapshot>>(
         future: getData(_userCollection),
@@ -58,21 +123,26 @@ class _AdminProfileState extends State<AdminProfile> {
 
                   return ListView(
                     children: [
+                      // User profiles
                       ListTile(
                         title: Text(
-                  'User Profiles',
-                    style: TextStyle(
-                      color: Colors.blueAccent, // Change the text color
-                      fontWeight: FontWeight.bold, // Make the text bold
-                    ),
-                    // Add the subtitle if needed
-                    // subtitle: Text('Manage expert profiles'),
-                  )
-                        //subtitle: Text('Manage user profiles'),
+                          'User Profiles',
+                          style: TextStyle(
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
                       ),
                       for (DocumentSnapshot userProfile in userProfiles!)
                         ListTile(
                           title: Text(userProfile.get('Name') ?? 'Name not available'),
+                          subtitle: Text(userProfile.get('Email') ?? 'Email not available'),
+                          leading: Checkbox(
+                            value: selectedEmails.contains(userProfile.get('Email')),
+                            onChanged: (value) {
+                              toggleEmailSelection(userProfile.get('Email'));
+                            },
+                          ),
                           trailing: ElevatedButton(
                             onPressed: () {
                               showDialog(
@@ -104,21 +174,27 @@ class _AdminProfileState extends State<AdminProfile> {
                             child: Text('Delete'),
                           ),
                         ),
+
+                      // Expert profiles
                       ListTile(
-                        title:Text(
+                        title: Text(
                           'Expert Profiles',
                           style: TextStyle(
-                            color: Colors.blueAccent, // Change the text color
-                            fontWeight: FontWeight.bold, // Make the text bold
+                            color: Colors.blueAccent,
+                            fontWeight: FontWeight.bold,
                           ),
-                          // Add the subtitle if needed
-                          // subtitle: Text('Manage expert profiles'),
-                        )
-
+                        ),
                       ),
                       for (DocumentSnapshot expertProfile in expertProfiles!)
                         ListTile(
                           title: Text(expertProfile.get('Name') ?? 'Name not available'),
+                          subtitle: Text(expertProfile.get('Email') ?? 'Email not available'),
+                          leading: Checkbox(
+                            value: selectedEmails.contains(expertProfile.get('Email')),
+                            onChanged: (value) {
+                              toggleEmailSelection(expertProfile.get('Email'));
+                            },
+                          ),
                           trailing: ElevatedButton(
                             onPressed: () {
                               showDialog(
@@ -157,6 +233,14 @@ class _AdminProfileState extends State<AdminProfile> {
             );
           }
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: sendSelectedEmails,
+        child: Icon(
+          Icons.email,
+          color: Colors.white,
+        ),
+        backgroundColor: Colors.blueAccent,
       ),
     );
   }

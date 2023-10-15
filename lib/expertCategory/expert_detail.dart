@@ -1,3 +1,4 @@
+import 'package:coltech/expertCategory/bookExpert.dart';
 import 'package:coltech/expertCategory/rate_now.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -7,13 +8,15 @@ import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../profile/profile_edit.dart';
 import 'expert_model.dart';
 
 class DetailExpert extends StatefulWidget {
-  final int id;
-  DetailExpert({super.key, required this.id});
+  final String type;
+  final Expert expert;
+  DetailExpert({super.key, required this.type, required this.expert});
   @override
   State<DetailExpert> createState() => _DetailExpertState();
 }
@@ -23,11 +26,30 @@ class _DetailExpertState extends State<DetailExpert>
   Color accentColor = Color(0xff214062);
   Expert sponsor = Expert('name', 'profession', 'skill', 'email');
   int vendorId = 0;
+  late String type;
+  late Expert expert;
   bool _load = true;
 
   @override
   void initState() {
     super.initState();
+    setState(() {
+      type = widget.type;
+      expert = widget.expert;
+    });
+  }
+
+  void contactExpert(String email) async {
+    final Uri _emailLaunchUri = Uri(
+      scheme: 'mailto',
+      path: email,
+    );
+
+    if (await canLaunch(_emailLaunchUri.toString())) {
+      await launch(_emailLaunchUri.toString());
+    } else {
+      throw 'Could not launch email';
+    }
   }
 
   @override
@@ -55,15 +77,23 @@ class _DetailExpertState extends State<DetailExpert>
                   children: [
                     Center(
                       child: ClipRRect(
-                        borderRadius: BorderRadius.circular(20),
+                        borderRadius: BorderRadius.circular(100),
                         child: Container(
                           height: 200,
-                          width: MediaQuery.of(context).size.width * 0.9,
+                          width: MediaQuery.of(context).size.width * 0.5,
+                          decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(100),
+                              border: Border.all(
+                                  color: Color(0xFF214062), width: 3)),
                           child: Image.network(
                             'https://i.gr-assets.com/images/S/compressed.photo.goodreads.com/hostedimages/1668528105i/33618060._SY540_.jpg',
+                            fit: BoxFit.fill,
                           ),
                         ),
                       ),
+                    ),
+                    SizedBox(
+                      height: 10,
                     ),
                     //rating
                     RatingBarWidget(
@@ -72,9 +102,65 @@ class _DetailExpertState extends State<DetailExpert>
                       pageType: 'vendors',
                       id: vendorId,
                       widget: DetailExpert(
-                        id: vendorId,
+                        type: '',
+                        expert: expert,
                       ),
                     ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    GestureDetector(
+                        onTap: () {
+                          Get.to(() => ConsultantBookingForm(
+                                email: '',
+                              ));
+                        },
+                        child: Center(
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 0.07,
+                            width: MediaQuery.of(context).size.width * 0.9,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(2),
+                              color: Colors.white,
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.1),
+                                  spreadRadius: 1,
+                                  blurRadius: 1,
+                                  offset: Offset(0, 1),
+                                ),
+                              ],
+                            ),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                getCustomFont(
+                                  expert.name,
+                                  16,
+                                  Colors.black87,
+                                  1,
+                                  fontWeight: FontWeight.w600,
+                                ),
+                                Container(
+                                  width: 100,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                      color: accentColor,
+                                      borderRadius: BorderRadius.circular(20)),
+                                  child: Center(
+                                    child: Text(
+                                      'Book Now',
+                                      style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 15,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  ),
+                                )
+                              ],
+                            ),
+                          ),
+                        )),
                     TabBar(indicatorColor: accentColor, tabs: [
                       Tab(
                         child: getCustomFont('Info', 15, Colors.black, 1,
@@ -96,7 +182,12 @@ class _DetailExpertState extends State<DetailExpert>
                                 const SizedBox(
                                   height: 20,
                                 ),
-                                buildContactItem(Icons.email, sponsor.email),
+                                GestureDetector(
+                                    onTap: () {
+                                      contactExpert('hrasel2002@gmail.com');
+                                    },
+                                    child: buildContactItem(
+                                        Icons.email, sponsor.email)),
                                 const SizedBox(
                                   height: 10,
                                 ),

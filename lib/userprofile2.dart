@@ -69,6 +69,7 @@ class _UserProfile2State extends State<UserProfile2> {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Profile'),
+        backgroundColor: Color(0xFF214062),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -173,6 +174,10 @@ class _UserProfile2State extends State<UserProfile2> {
                 // Implement navigation to the dashboard screen here
                 Get.to(()=>UserNav());
               },
+              style: ElevatedButton.styleFrom(
+                 backgroundColor: Color(0xFF214062), // Text (and icon) color
+              ),
+
               child: Text('Dashboard'),
             ),
           ],

@@ -38,6 +38,7 @@ class _UserProfileState extends State<UserProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text('User Profile'),
+        backgroundColor: Color(0xFF214062),
       ),
       body: SingleChildScrollView(
         child: Column(

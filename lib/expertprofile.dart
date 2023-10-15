@@ -200,6 +200,7 @@ class _ExpertProfileState extends State<ExpertProfile> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Expert Profile'),
+        backgroundColor: Color(0xFF214062),
       ),
       body: Column(
         children: [
@@ -260,6 +261,9 @@ class _ExpertProfileState extends State<ExpertProfile> {
                       // Navigate to the dashboard screen when the button is pressed
                       Get.to(()=>ExpertNav());
                     },
+                    style: ElevatedButton.styleFrom(
+                      foregroundColor: Colors.white, backgroundColor: Colors.blue, // Text (and icon) color
+                    ),
                     child: Text('Dashboard'),
                   ),
                 ],

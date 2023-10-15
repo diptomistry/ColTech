@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,10 +17,11 @@ class HomeScreen extends StatelessWidget {
           children: [
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'login', arguments: 'client',);
+                // Handle the action for "Continue as Client"
+                Navigator.pushNamed(context, 'login', arguments: 'client');
               },
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(350, 30),
+                fixedSize: Size(350, 60),
                 backgroundColor: Color(0xFF214062),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
@@ -34,46 +38,56 @@ class HomeScreen extends StatelessWidget {
             SizedBox(height: 30.0),
             ElevatedButton(
               onPressed: () {
-                Navigator.pushNamed(context, 'login',arguments: 'expertise',);
+                _showRoleSelectionDialog(context);
               },
               style: ElevatedButton.styleFrom(
-                fixedSize: Size(350, 30),
+                fixedSize: Size(250, 30), // Increase the height for the big button
                 backgroundColor: Color(0xFF214062),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20.0),
                 ),
               ),
               child: Text(
-                'Continue as Expertise',
+                'Are you an Expert or Admin?', // Update the text
                 style: TextStyle(
                   color: Colors.white,
-                  fontSize: 16.0,
-                ),
-              ),
-            ),
-            SizedBox(height: 30.0),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pushNamed(context, 'login',arguments: 'admin',);
-              },
-              style: ElevatedButton.styleFrom(
-                fixedSize: Size(350, 30),
-                backgroundColor: Color(0xFF214062),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                ),
-              ),
-              child: Text(
-                'Continue as Admin',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16.0,
+                  fontSize: 10.0, // Increase the font size
                 ),
               ),
             ),
           ],
         ),
       ),
+    );
+  }
+
+  void _showRoleSelectionDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Choose Your Role'),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              ListTile(
+                title: Text('Expert'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.pushNamed(context, 'login',arguments: 'expertise',);
+                },
+              ),
+              ListTile(
+                title: Text('Admin'),
+                onTap: () {
+                  Navigator.of(context).pop();
+                  Navigator.pushNamed(context, 'admin');
+                },
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

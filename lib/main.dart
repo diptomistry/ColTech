@@ -14,6 +14,7 @@ import 'package:get/get_navigation/src/root/get_material_app.dart';
 
 
 import 'adminLogin.dart';
+import 'adminprofile.dart';
 import 'expertprofile.dart';
 
 import 'expertprofile2.dart';
@@ -41,7 +42,7 @@ Future<void> main() async {
       'userprofile2': (context) => UserProfile2(email: '',),
       'expertprofile': (context) => ExpertProfile(),
       "expertprofile2": (context) => ExpartProfile2(email: '',),
-
+      'adminprofile': (context) => AdminProfile(),
     },
   ));
 }

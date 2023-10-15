@@ -53,7 +53,9 @@ class _AdminLoginState extends State<AdminLogin> {
               ),
               SizedBox(height: 10),
               ElevatedButton(
-                onPressed:(){},
+                onPressed:(){
+                  Navigator.pushNamed(context, 'adminprofile',);
+                },
                 child: Text(
                   'Login',
                   style: TextStyle(fontSize: 16),

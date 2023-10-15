@@ -52,8 +52,7 @@ class _UserHomePageState extends State<UserHomePage> {
                             return InkWell(
                               onTap: () {
                                 Get.to(() => AllExpertsPage(
-                                    speakerId:
-                                        int.parse(categories![index].id)));
+                                    type: (categories![index].name)));
                               },
                               child: Container(
                                 margin: EdgeInsets.only(

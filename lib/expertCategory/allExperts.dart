@@ -4,6 +4,7 @@
 // import 'package:event/event/eventHome.dart';
 // import 'package:event/modal/modal_speaker.dart';
 // import 'package:event/Expert/speaker_details.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:coltech/expertCategory/expert_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -20,15 +21,15 @@ import 'expert_detail.dart';
 // import 'all_about_speaker.dart';
 
 class AllExpertsPage extends StatefulWidget {
-  final int speakerId;
-  const AllExpertsPage({Key? key, required this.speakerId}) : super(key: key);
+  final String type;
+  const AllExpertsPage({Key? key, required this.type}) : super(key: key);
 
   @override
   State<AllExpertsPage> createState() => _AllExpertsPageState();
 }
 
 class _AllExpertsPageState extends State<AllExpertsPage> {
-  late int eventId;
+  late String type;
 
   late Future<List<Expert>> _speakersFuture;
   List<Expert> _filteredSpeakers = [];
@@ -36,7 +37,7 @@ class _AllExpertsPageState extends State<AllExpertsPage> {
   void initState() {
     super.initState();
     setState(() {
-      eventId = widget.speakerId;
+      type = widget.type;
     });
     _speakersFuture = fetchSpeakers();
   }
@@ -44,17 +45,24 @@ class _AllExpertsPageState extends State<AllExpertsPage> {
   Color accentColor = Color(0xff214062);
   Future<List<Expert>> fetchSpeakers() async {
     try {
-      final speakers = await FetchSpeakers();
+      final speakers = await fetchExperts();
+      List<Expert> lis = [];
+      for (var it in speakers) {
+        if (it.skill.toLowerCase() == type.toLowerCase()) {
+          lis.add(it);
+        }
+      }
       setState(() {
-        _allSpeakers = speakers;
-        _filteredSpeakers = speakers;
+        _allSpeakers = lis;
+        _filteredSpeakers = lis;
       });
-      return speakers;
+      return lis;
     } catch (e) {
       throw e;
     }
   }
 
+  void fetch() async {}
   List<Expert> _allSpeakers = [];
   void filterSpeakers(String query) {
     setState(() {
@@ -104,7 +112,7 @@ class _AllExpertsPageState extends State<AllExpertsPage> {
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
-                    'Devops Experts',
+                    '${type} Experts',
                     style: TextStyle(
                         color: Colors.black,
                         fontWeight: FontWeight.w600,
@@ -151,7 +159,8 @@ class _AllExpertsPageState extends State<AllExpertsPage> {
                           return InkWell(
                             onTap: () {
                               Get.to(() => DetailExpert(
-                                    id: 0,
+                                    type: expert.skill,
+                                    expert: _filteredSpeakers[index],
                                   ));
                               // Constant.sendToScreen(
                               //     SpeakerDetails(speakerID: Expert.id),
@@ -410,11 +419,5 @@ class _AllExpertsPageState extends State<AllExpertsPage> {
     );
   }
 
-  FetchSpeakers() {
-    return [
-      Expert('Elon Musk', 'profession', 'skill', 'email'),
-      Expert('name', 'profession', 'skill', 'email')
-    ];
-  }
 // ... (other methods)
 }

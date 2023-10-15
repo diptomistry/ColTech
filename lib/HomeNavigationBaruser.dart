@@ -19,41 +19,24 @@ class UserNav extends StatefulWidget {
 
 class _UserNavState extends State<UserNav> {
   int _selectedIndex = 0;
+  var pages = [UserHomePage(), NewsFeed(), UserProfile()];
 
   void _onItemTapped(int index) {
-    if (index == 1) {
-      // If the person icon is pressed, navigate back.
-      Navigator.pop(context);
-    }
+    setState(() {
+      _selectedIndex = index;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('ColTech'), // App title
-        actions: <Widget>[
-          if (_selectedIndex == 0)
-            TextButton(
-              onPressed: () {
-                // Navigate to the ExpertPage when the "Find Experts" button is pressed.
-                Get.to(() => ExpertPage());
-              },
-              child: Text(
-                'Find Experts',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-            ),
-        ],
-      ),
-      body: _buildPage(_selectedIndex),
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _selectedIndex,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.question_mark), label: 'Feed'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profile'),
         ],
         onTap: _onItemTapped,
@@ -65,9 +48,9 @@ class _UserNavState extends State<UserNav> {
     if (index == 0) {
       return UserHomePage();
     } else if (index == 1) {
-      return ProfileScreen();
+      return NewsFeed();
     } else {
-      return UserHomePage(); // Default to UserHomePage.
+      return UserProfile(); // Default to UserHomePage.
     }
   }
 }
